@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="https://schrader.promos-consult.de:8408/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='ERP')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://schrader.promos-consult.de:8408/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='ERP')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://schrader.promos-consult.de:8408/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='ERP')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://schrader.promos-consult.de:8408/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='ERP')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://schrader.promos-consult.de:8408/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='ERP')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="YLM_RESB_DATA_CDS" xml:lang="de" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="xPROHANxIC_User_VHType" sap:label="User Basic mit Name" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="UserID"/>
+                </Key>
+                <Property Name="UserID" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:text="UserID_Text" sap:label="Benutzer" sap:quickinfo="Benutzername im Benutzerstamm"/>
+                <Property Name="UserID_Text" Type="Edm.String" MaxLength="80" sap:label="Vollständiger Name" sap:quickinfo="Vollständiger Name der Person" sap:creatable="false" sap:updatable="false"/>
+            </EntityType>
+            <EntityType Name="xPROHANxI_Resub_Contract_VHType" sap:label="Vertrag Wertehilfe" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                    <PropertyRef Name="RentalContract"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="to_CompanyCode/CompanyCodeName" sap:label="Buchungskreis" sap:value-list="standard"/>
+                <Property Name="RentalContract" Type="Edm.String" Nullable="false" MaxLength="13" sap:display-format="UpperCase" sap:text="ContractDescription" sap:label="Immobilienvertrag" sap:quickinfo="Rental Contract"/>
+                <Property Name="ContractStartDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Gültigkeit (von)" sap:quickinfo="Validity Start Date"/>
+                <Property Name="ContractEndDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Gültigkeit (bis)" sap:quickinfo="Validity End Date"/>
+                <Property Name="InternalRealEstateKey" Type="Edm.String" MaxLength="13" sap:display-format="UpperCase" sap:label="RE-Schlüssel" sap:quickinfo="Interner Schlüssel des Immobilienobjekts"/>
+                <Property Name="BusinessEntity" Type="Edm.String" MaxLength="8" sap:display-format="UpperCase" sap:label="Wirtschaftseinheit" sap:quickinfo="Business Entity"/>
+                <Property Name="ContractDescription" Type="Edm.String" MaxLength="80" sap:label="Vertragsbezeichnung"/>
+                <Property Name="RentalContractType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Vertragsart"/>
+                <Property Name="ObjectKey" Type="Edm.String" MaxLength="50" sap:display-format="UpperCase" sap:label="Objektidentifikation" sap:quickinfo="Vollständige Objektidentifikation, z.B. WE 1000/123" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="to_CompanyCode" Relationship="YLM_RESB_DATA_CDS.assoc_29E994A6FF75124C22C4B89851535A85" FromRole="FromRole_assoc_29E994A6FF75124C22C4B89851535A85" ToRole="ToRole_assoc_29E994A6FF75124C22C4B89851535A85"/>
+            </EntityType>
+            <EntityType Name="xPROHANxRESB_ACTType" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="applic"/>
+                    <PropertyRef Name="acttyp"/>
+                </Key>
+                <Property Name="applic" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Anwendung" sap:quickinfo="Wiedervorlagen Applikation"/>
+                <Property Name="acttyp" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Aktivität" sap:quickinfo="Wiedervorlagen/Aktivität"/>
+                <Property Name="acttxt" Type="Edm.String" MaxLength="50" sap:label="Bezeichn. Aktivität" sap:quickinfo="Bezeichnung Aktivität"/>
+            </EntityType>
+            <EntityType Name="xPROHANxresb_data_vhType" sap:label="Wertehilfen" sap:value-list="true" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BusType"/>
+                    <PropertyRef Name="stext"/>
+                </Key>
+                <Property Name="BusType" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:filter-restriction="multi-value" sap:required-in-filter="false" sap:label="Objekttyp" sap:value-list="standard"/>
+                <Property Name="stext" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Bezeichnung"/>
+            </EntityType>
+            <EntityType Name="I_CompanyCodeType" sap:label="Buchungskreis" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CompanyCode"/>
+                </Key>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="CompanyCodeName" sap:label="Buchungskreis"/>
+                <Property Name="CompanyCodeName" Type="Edm.String" MaxLength="25" sap:label="Name der Firma" sap:quickinfo="Buchungskreis- oder Firmen-Bezeichnung"/>
+                <Property Name="CityName" Type="Edm.String" MaxLength="25" sap:label="Ort"/>
+                <Property Name="Country" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Länderschlüssel"/>
+                <Property Name="Currency" Type="Edm.String" MaxLength="5" sap:label="Währung" sap:quickinfo="Währungsschlüssel" sap:semantics="currency-code"/>
+                <Property Name="Language" Type="Edm.String" MaxLength="2" sap:label="Sprachenschlüssel"/>
+                <Property Name="ChartOfAccounts" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Kontenplan"/>
+                <Property Name="FiscalYearVariant" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="GeschJahresvariante" sap:quickinfo="Geschäftsjahresvariante"/>
+                <Property Name="Company" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Gesellschaft"/>
+                <Property Name="CreditControlArea" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:text="CreditControlArea_Text" sap:label="Kreditkontr.Bereich" sap:quickinfo="Kreditkontrollbereich"/>
+                <Property Name="CreditControlArea_Text" Type="Edm.String" MaxLength="35" sap:label="Bezeichnung" sap:quickinfo="Bezeichnung des Kredit-Kontrollbereichs" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="CountryChartOfAccounts" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Landeskontenplan" sap:quickinfo="Kontenplan nach Landesrecht"/>
+                <Property Name="FinancialManagementArea" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Finanzkreis"/>
+                <Property Name="AddressID" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Adresse"/>
+                <Property Name="TaxableEntity" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Umsatzsteuerkreis"/>
+                <Property Name="VATRegistration" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Umsatzsteuer-Id.Nr" sap:quickinfo="Umsatzsteuer-Identifikationsnummer"/>
+                <Property Name="ExtendedWhldgTaxIsActive" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Erweit.Quell.Steuer" sap:quickinfo="Kennzeichen: erweiterte Quellensteuerabwicklung aktiv"/>
+                <Property Name="ControllingArea" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:text="ControllingArea_Text" sap:label="Kostenrechnungskreis"/>
+                <Property Name="ControllingArea_Text" Type="Edm.String" MaxLength="25" sap:label="Name des Kostenrechnungskreises" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="FieldStatusVariant" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Feldstatusvariante"/>
+                <Property Name="NonTaxableTransactionTaxCode" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Kennz.Ausg.St." sap:quickinfo="Steuerkennzeichen nicht steuerbarer Vorgang Ausgangssteuer"/>
+                <Property Name="DocDateIsUsedForTaxDetn" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Steuererm. mit Belegdatum" sap:quickinfo="Kennzeichen: Belegdatum als Basis für Steuerfindung"/>
+                <Property Name="TaxRptgDateIsActive" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Steuerdatum" sap:quickinfo="Steuermeldedatum in Belegen aktiv"/>
+            </EntityType>
+            <EntityType Name="I_DraftAdministrativeDataType" sap:label="Verwaltungsdaten für Entwurf" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false" sap:label="Entwurf (techn. ID)" sap:quickinfo="Entwurf (technische ID)"/>
+                <Property Name="DraftEntityType" Type="Edm.String" MaxLength="30" sap:display-format="UpperCase" sap:label="Entwurfsentitäts-ID"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Entwurf angelegt am"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="CreatedByUserDescription" sap:label="Entwurf angelegt von"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Entwurf zuletzt geändert am"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="LastChangedByUserDescription" sap:label="Entwurf zuletzt geändert von"/>
+                <Property Name="DraftAccessType" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Entwurfszugriffstyp"/>
+                <Property Name="ProcessingStartDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Entwurf in Bearbeitung seit"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:text="InProcessByUserDescription" sap:label="Entwurf wird bearbeitet von"/>
+                <Property Name="DraftIsKeptByUser" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Entwurf beibeihalten von Benutzer"/>
+                <Property Name="EnqueueStartDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Entwurf gesperrt seit"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Von mir erstellter Entwurf"/>
+                <Property Name="DraftIsLastChangedByMe" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Von mir zuletzt geänderter Entwurf"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Von mir bearbeiteter Entwurf"/>
+                <Property Name="CreatedByUserDescription" Type="Edm.String" MaxLength="80" sap:label="Entwurf angelegt von (Beschreibung)"/>
+                <Property Name="LastChangedByUserDescription" Type="Edm.String" MaxLength="80" sap:label="Entwurf zuletzt geändert von (Beschr.)" sap:quickinfo="Entwurf zuletzt geändert von (Beschreibung)"/>
+                <Property Name="InProcessByUserDescription" Type="Edm.String" MaxLength="80" sap:label="Entwurf wird bearbeitet von (Beschr.)" sap:quickinfo="Entwurf wird bearbeitet von (Beschreibung)"/>
+            </EntityType>
+            <EntityType Name="YLM_RESB_DATAType" sap:label="Promos Resubmissions (data)" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Application"/>
+                    <PropertyRef Name="Creator"/>
+                    <PropertyRef Name="CreationDate"/>
+                    <PropertyRef Name="CreationTime"/>
+                    <PropertyRef Name="BusObjectKey"/>
+                    <PropertyRef Name="Receiving"/>
+                    <PropertyRef Name="DraftUUID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="Activation_ac" Type="Edm.Boolean" sap:label="Dyn. Aktions-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Edit_ac" Type="Edm.Boolean" sap:label="Dyn. Aktions-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Preparation_ac" Type="Edm.Boolean" sap:label="Dyn. Aktions-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Validation_ac" Type="Edm.Boolean" sap:label="Dyn. Aktions-Control" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BusType_fc" Type="Edm.Byte" sap:label="Dyn. Feldsteuerung" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RealEstateContractBO_fc" Type="Edm.Byte" sap:label="Dyn. Feldsteuerung" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Receiver_fc" Type="Edm.Byte" sap:label="Dyn. Feldsteuerung" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Application" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Anwendung" sap:quickinfo="Wiedervorlagen Applikation"/>
+                <Property Name="Creator" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:filter-restriction="multi-value" sap:required-in-filter="false" sap:label="Erfasser" sap:creatable="false" sap:updatable="false" sap:value-list="standard"/>
+                <Property Name="CreationDate" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="CreationTime" Type="Edm.Time" Nullable="false" Precision="0" sap:label="Angelegt um"/>
+                <Property Name="BusObjectKey" Type="Edm.String" Nullable="false" MaxLength="60"/>
+                <Property Name="Receiving" Type="Edm.String" Nullable="false" MaxLength="25"/>
+                <Property Name="Receiver" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:field-control="Receiver_fc" sap:label="Empfänger/Verantw." sap:quickinfo="Wiedervorlage - Empfänger/Verantwortlicher" sap:value-list="standard"/>
+                <Property Name="ReceiverGroup" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Empfänger(Benut.Gr.)" sap:quickinfo="Wiedervorlage - Benutzergruppe(Empfänger)"/>
+                <Property Name="BusType" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:field-control="BusType_fc" sap:filter-restriction="multi-value" sap:required-in-filter="false" sap:label="Objekttyp" sap:value-list="standard"/>
+                <Property Name="creationdateint" Type="Edm.String" MaxLength="8"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="50" sap:label="Bezeichn. Aktivität" sap:quickinfo="Bezeichnung Aktivität"/>
+                <Property Name="Title" Type="Edm.String" MaxLength="50" sap:required-in-filter="false" sap:label="Text Aktivität"/>
+                <Property Name="ActivityDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum Aktivität" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ResubmissionType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:filter-restriction="multi-value" sap:required-in-filter="false" sap:text="Description" sap:label="Aktivität" sap:quickinfo="Wiedervorlagen/Aktivität" sap:value-list="standard"/>
+                <Property Name="CreatorResubmissionDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="wiedervorlegen am" sap:quickinfo="Vorlegen am"/>
+                <Property Name="DateCriticality" Type="Edm.Byte" sap:label="state"/>
+                <Property Name="ModificationDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Letzte Bearbeitung" sap:quickinfo="Zuletzt bearbeitet am"/>
+                <Property Name="ModificationTime" Type="Edm.Time" Precision="0" sap:label="Zul. bearbeitet um" sap:quickinfo="Uhrzeit der letzten Bearbeitung"/>
+                <Property Name="MailReceiver" Type="Edm.String" MaxLength="241" sap:label="BAS Address" sap:quickinfo="Adressstring einer BAS-Adresse"/>
+                <Property Name="DeletionFlag" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="gelöscht" sap:quickinfo="Wiedervorlagen Löschkennzeichen"/>
+                <Property Name="ReceiverResubmissionDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="wiedervorlegen am" sap:quickinfo="Wiedervorlage Datum"/>
+                <Property Name="rulepara" Type="Edm.String" MaxLength="60" sap:label="Bez. Wiederv.-regel" sap:quickinfo="Bezeichnung der Wiedervorlageregel" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="ReadUser" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Benutzer" sap:quickinfo="Benutzername im Benutzerstamm"/>
+                <Property Name="ReadDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Datum"/>
+                <Property Name="ReadTime" Type="Edm.Time" Precision="0" sap:label="Uhrzeit" sap:quickinfo="Tageszeit"/>
+                <Property Name="ApplicationText" Type="Edm.String" MaxLength="40" sap:label="Text Anwendung" sap:quickinfo="RESB: Text Anwendung"/>
+                <Property Name="RealEstateContractBO" Type="Edm.String" MaxLength="50" sap:field-control="RealEstateContractBO_fc" sap:label="Vertrag" sap:quickinfo="Wiedervorlagen Objekt" sap:value-list="standard"/>
+                <Property Name="Longtext" Type="Edm.String" sap:display-format="UpperCase" sap:label="Beschreibung" sap:quickinfo="Promos Wiedervorlagen: Text"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Hat Entwurf" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false" sap:label="Schlüssel" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityCreationDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Entwurf angelegt am" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="DraftEntityLastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7" sap:label="Entwurf zuletzt geändert am" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" sap:display-format="UpperCase" sap:label="Hat aktives Dokument" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" sap:display-format="UpperCase" sap:label="Ist aktiv" sap:heading="" sap:quickinfo="" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Relationship="YLM_RESB_DATA_CDS.assoc_F1074E39B94FCBC74805AD27931A8F2A" FromRole="FromRole_assoc_F1074E39B94FCBC74805AD27931A8F2A" ToRole="ToRole_assoc_F1074E39B94FCBC74805AD27931A8F2A"/>
+                <NavigationProperty Name="SiblingEntity" Relationship="YLM_RESB_DATA_CDS.assoc_661AA91EA4A32C85C0CA45C86A9D62DD" FromRole="FromRole_assoc_661AA91EA4A32C85C0CA45C86A9D62DD" ToRole="ToRole_assoc_661AA91EA4A32C85C0CA45C86A9D62DD"/>
+            </EntityType>
+            <ComplexType Name="ValidationFunctionResult">
+                <Property Name="IsValid" Type="Edm.Boolean" sap:label="Ist gültig"/>
+            </ComplexType>
+            <Association Name="assoc_29E994A6FF75124C22C4B89851535A85" sap:content-version="1">
+                <End Type="YLM_RESB_DATA_CDS.xPROHANxI_Resub_Contract_VHType" Multiplicity="1" Role="FromRole_assoc_29E994A6FF75124C22C4B89851535A85"/>
+                <End Type="YLM_RESB_DATA_CDS.I_CompanyCodeType" Multiplicity="0..1" Role="ToRole_assoc_29E994A6FF75124C22C4B89851535A85"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_29E994A6FF75124C22C4B89851535A85">
+                        <PropertyRef Name="CompanyCode"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_29E994A6FF75124C22C4B89851535A85">
+                        <PropertyRef Name="CompanyCode"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_F1074E39B94FCBC74805AD27931A8F2A" sap:content-version="1">
+                <End Type="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" Multiplicity="1" Role="FromRole_assoc_F1074E39B94FCBC74805AD27931A8F2A"/>
+                <End Type="YLM_RESB_DATA_CDS.I_DraftAdministrativeDataType" Multiplicity="0..1" Role="ToRole_assoc_F1074E39B94FCBC74805AD27931A8F2A"/>
+            </Association>
+            <Association Name="assoc_661AA91EA4A32C85C0CA45C86A9D62DD" sap:content-version="1">
+                <End Type="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" Multiplicity="1" Role="FromRole_assoc_661AA91EA4A32C85C0CA45C86A9D62DD"/>
+                <End Type="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" Multiplicity="0..1" Role="ToRole_assoc_661AA91EA4A32C85C0CA45C86A9D62DD"/>
+            </Association>
+            <EntityContainer Name="YLM_RESB_DATA_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="xPROHANxIC_User_VH" EntityType="YLM_RESB_DATA_CDS.xPROHANxIC_User_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="xPROHANxI_Resub_Contract_VH" EntityType="YLM_RESB_DATA_CDS.xPROHANxI_Resub_Contract_VHType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="xPROHANxRESB_ACT" EntityType="YLM_RESB_DATA_CDS.xPROHANxRESB_ACTType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="xPROHANxresb_data_vh" EntityType="YLM_RESB_DATA_CDS.xPROHANxresb_data_vhType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="I_CompanyCode" EntityType="YLM_RESB_DATA_CDS.I_CompanyCodeType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
+                <EntitySet Name="I_DraftAdministrativeData" EntityType="YLM_RESB_DATA_CDS.I_DraftAdministrativeDataType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:addressable="false" sap:content-version="1"/>
+                <EntitySet Name="YLM_RESB_DATA" EntityType="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" sap:content-version="1"/>
+                <AssociationSet Name="assoc_F1074E39B94FCBC74805AD27931A8F2A" Association="YLM_RESB_DATA_CDS.assoc_F1074E39B94FCBC74805AD27931A8F2A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YLM_RESB_DATA" Role="FromRole_assoc_F1074E39B94FCBC74805AD27931A8F2A"/>
+                    <End EntitySet="I_DraftAdministrativeData" Role="ToRole_assoc_F1074E39B94FCBC74805AD27931A8F2A"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_661AA91EA4A32C85C0CA45C86A9D62DD" Association="YLM_RESB_DATA_CDS.assoc_661AA91EA4A32C85C0CA45C86A9D62DD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YLM_RESB_DATA" Role="FromRole_assoc_661AA91EA4A32C85C0CA45C86A9D62DD"/>
+                    <End EntitySet="YLM_RESB_DATA" Role="ToRole_assoc_661AA91EA4A32C85C0CA45C86A9D62DD"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_29E994A6FF75124C22C4B89851535A85" Association="YLM_RESB_DATA_CDS.assoc_29E994A6FF75124C22C4B89851535A85" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="xPROHANxI_Resub_Contract_VH" Role="FromRole_assoc_29E994A6FF75124C22C4B89851535A85"/>
+                    <End EntitySet="I_CompanyCode" Role="ToRole_assoc_29E994A6FF75124C22C4B89851535A85"/>
+                </AssociationSet>
+                <FunctionImport Name="YLM_RESB_DATAActivation" ReturnType="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" EntitySet="YLM_RESB_DATA" m:HttpMethod="POST" sap:action-for="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" sap:applicable-path="Activation_ac">
+                    <Parameter Name="Application" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Creator" Type="Edm.String" Mode="In" MaxLength="12"/>
+                    <Parameter Name="CreationDate" Type="Edm.String" Mode="In" MaxLength="8"/>
+                    <Parameter Name="CreationTime" Type="Edm.Time" Mode="In" Precision="0"/>
+                    <Parameter Name="BusObjectKey" Type="Edm.String" Mode="In" MaxLength="60"/>
+                    <Parameter Name="Receiving" Type="Edm.String" Mode="In" MaxLength="25"/>
+                    <Parameter Name="DraftUUID" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                </FunctionImport>
+                <FunctionImport Name="YLM_RESB_DATAEdit" ReturnType="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" EntitySet="YLM_RESB_DATA" m:HttpMethod="POST" sap:action-for="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" sap:applicable-path="Edit_ac">
+                    <Parameter Name="Application" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Creator" Type="Edm.String" Mode="In" MaxLength="12"/>
+                    <Parameter Name="CreationDate" Type="Edm.String" Mode="In" MaxLength="8"/>
+                    <Parameter Name="CreationTime" Type="Edm.Time" Mode="In" Precision="0"/>
+                    <Parameter Name="BusObjectKey" Type="Edm.String" Mode="In" MaxLength="60"/>
+                    <Parameter Name="Receiving" Type="Edm.String" Mode="In" MaxLength="25"/>
+                    <Parameter Name="DraftUUID" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="PreserveChanges" Type="Edm.Boolean" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="YLM_RESB_DATAPreparation" ReturnType="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" EntitySet="YLM_RESB_DATA" m:HttpMethod="POST" sap:action-for="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" sap:applicable-path="Preparation_ac">
+                    <Parameter Name="Application" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Creator" Type="Edm.String" Mode="In" MaxLength="12"/>
+                    <Parameter Name="CreationDate" Type="Edm.String" Mode="In" MaxLength="8"/>
+                    <Parameter Name="CreationTime" Type="Edm.Time" Mode="In" Precision="0"/>
+                    <Parameter Name="BusObjectKey" Type="Edm.String" Mode="In" MaxLength="60"/>
+                    <Parameter Name="Receiving" Type="Edm.String" Mode="In" MaxLength="25"/>
+                    <Parameter Name="DraftUUID" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+                <FunctionImport Name="YLM_RESB_DATAValidation" ReturnType="YLM_RESB_DATA_CDS.ValidationFunctionResult" m:HttpMethod="GET" sap:action-for="YLM_RESB_DATA_CDS.YLM_RESB_DATAType" sap:applicable-path="Validation_ac">
+                    <Parameter Name="Application" Type="Edm.String" Mode="In" MaxLength="4"/>
+                    <Parameter Name="Creator" Type="Edm.String" Mode="In" MaxLength="12"/>
+                    <Parameter Name="CreationDate" Type="Edm.String" Mode="In" MaxLength="8"/>
+                    <Parameter Name="CreationTime" Type="Edm.Time" Mode="In" Precision="0"/>
+                    <Parameter Name="BusObjectKey" Type="Edm.String" Mode="In" MaxLength="60"/>
+                    <Parameter Name="Receiving" Type="Edm.String" Mode="In" MaxLength="25"/>
+                    <Parameter Name="DraftUUID" Type="Edm.Guid" Mode="In"/>
+                    <Parameter Name="IsActiveEntity" Type="Edm.Boolean" Mode="In"/>
+                    <Parameter Name="SideEffectsQualifier" Type="Edm.String" Mode="In" Nullable="true"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATA_CDS_Entities/YLM_RESB_DATA" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.DraftRoot">
+                    <Record>
+                        <PropertyValue Property="ActivationAction" String="YLM_RESB_DATA_CDS.YLM_RESB_DATA_CDS_Entities/YLM_RESB_DATAActivation"/>
+                        <PropertyValue Property="EditAction" String="YLM_RESB_DATA_CDS.YLM_RESB_DATA_CDS_Entities/YLM_RESB_DATAEdit"/>
+                        <PropertyValue Property="PreparationAction" String="YLM_RESB_DATA_CDS.YLM_RESB_DATA_CDS_Entities/YLM_RESB_DATAPreparation"/>
+                        <PropertyValue Property="ValidationFunction" String="YLM_RESB_DATA_CDS.YLM_RESB_DATA_CDS_Entities/YLM_RESB_DATAValidation"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Activation_ac</PropertyPath>
+                                <PropertyPath>Edit_ac</PropertyPath>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>BusType_fc</PropertyPath>
+                                <PropertyPath>RealEstateContractBO_fc</PropertyPath>
+                                <PropertyPath>Receiver_fc</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Creator"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="BusType"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="ResubmissionType"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="Longtext"/>
+                                    <PropertyValue Property="AllowedExpressions" String="SearchExpression"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>Activation_ac</PropertyPath>
+                                <PropertyPath>Edit_ac</PropertyPath>
+                                <PropertyPath>Preparation_ac</PropertyPath>
+                                <PropertyPath>Validation_ac</PropertyPath>
+                                <PropertyPath>BusType_fc</PropertyPath>
+                                <PropertyPath>RealEstateContractBO_fc</PropertyPath>
+                                <PropertyPath>Receiver_fc</PropertyPath>
+                                <PropertyPath>Longtext</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.xPROHANxI_Resub_Contract_VHType/CompanyCode" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Company Code"/>
+                        <PropertyValue Property="CollectionPath" String="I_CompanyCode"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCodeName"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CreditControlArea_Text"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ControllingArea_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.xPROHANxresb_data_vhType/BusType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Wertehilfen"/>
+                        <PropertyValue Property="CollectionPath" String="xPROHANxresb_data_vh"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BusType"/>
+                                    <PropertyValue Property="ValueListProperty" String="BusType"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="stext"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATAType/Creator" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="User Basic mit Name"/>
+                        <PropertyValue Property="CollectionPath" String="xPROHANxIC_User_VH"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Creator"/>
+                                    <PropertyValue Property="ValueListProperty" String="UserID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UserID_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATAType/Receiver" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="User Basic mit Name"/>
+                        <PropertyValue Property="CollectionPath" String="xPROHANxIC_User_VH"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Receiver"/>
+                                    <PropertyValue Property="ValueListProperty" String="UserID"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="UserID_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATAType/BusType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Wertehilfen"/>
+                        <PropertyValue Property="CollectionPath" String="xPROHANxresb_data_vh"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BusType"/>
+                                    <PropertyValue Property="ValueListProperty" String="BusType"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="stext"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATAType/ResubmissionType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Wertehilfe für Aktivitäten"/>
+                        <PropertyValue Property="CollectionPath" String="xPROHANxRESB_ACT"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ResubmissionType"/>
+                                    <PropertyValue Property="ValueListProperty" String="acttyp"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Description"/>
+                                    <PropertyValue Property="ValueListProperty" String="acttxt"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="applic"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATAType/RealEstateContractBO" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="Vertrag Wertehilfe"/>
+                        <PropertyValue Property="CollectionPath" String="xPROHANxI_Resub_Contract_VH"/>
+                        <PropertyValue Property="SearchSupported" Bool="false"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="RealEstateContractBO"/>
+                                    <PropertyValue Property="ValueListProperty" String="ObjectKey"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="RentalContract"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ContractStartDate"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ContractEndDate"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="InternalRealEstateKey"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="BusinessEntity"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="ContractDescription"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="RentalContractType"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATA_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATAType/ReceiverResubmissionDate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATAType/Title" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATA_CDS_Entities/xPROHANxI_Resub_Contract_VH" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ObjectKey</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SortRestrictions">
+                    <Record>
+                        <PropertyValue Property="NonSortableProperties">
+                            <Collection>
+                                <PropertyPath>ObjectKey</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YLM_RESB_DATA_CDS.YLM_RESB_DATA_CDS_Entities/xPROHANxresb_data_vh" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record>
+                        <PropertyValue Property="FilterExpressionRestrictions">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="Property" PropertyPath="BusType"/>
+                                    <PropertyValue Property="AllowedExpressions" String="MultiValue"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="https://schrader.promos-consult.de:8408/sap/opu/odata/sap/YLM_RESB_DATA_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://schrader.promos-consult.de:8408/sap/opu/odata/sap/YLM_RESB_DATA_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
